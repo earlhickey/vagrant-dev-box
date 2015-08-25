@@ -1,0 +1,29 @@
+---
+- name: Install Apache
+  sudo: yes
+  apt: pkg=apache2 state=latest
+
+- name: Install Apache Modules
+  apache2_module: state=present name={{ item }}
+  with_items: apache.packages
+  when: apache.packages is defined
+  notify: restart apache
+
+- name: Add localhost
+  sudo: yes
+  template: src=localhost.conf dest=/etc/apache2/sites-available/000-default.conf
+  notify: restart apache
+
+- name: Enable localhost
+  file: src=/etc/apache2/sites-available/000-default.conf dest=/etc/apache2/sites-enabled/000-default.conf state=link
+  notify: restart apache
+
+- name: Add SRG vhosts
+  sudo: yes
+  template: src=vhosts_srg.conf dest=/etc/apache2/sites-available/001-srg.conf
+  notify: restart apache
+
+- name: Enable SRG vhosts
+  file: src=/etc/apache2/sites-available/001-srg.conf dest=/etc/apache2/sites-enabled/001-srg.conf state=link
+  notify: restart apache
+
