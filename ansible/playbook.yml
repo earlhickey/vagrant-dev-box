@@ -2,7 +2,7 @@
 - hosts: all
   sudo: true
   vars_files:
-    - vars/all.yml
+    - vars/all.local.yml
   roles:
     - server
     - apache
