@@ -11,19 +11,19 @@
 
 - name: Add localhost
   sudo: yes
-  template: src=localhost.conf dest=/etc/apache2/sites-available/000-default.conf
+  template: src=000_localhost.conf dest=/etc/apache2/sites-available/000-default.conf
   notify: restart apache
 
 - name: Enable localhost
   file: src=/etc/apache2/sites-available/000-default.conf dest=/etc/apache2/sites-enabled/000-default.conf state=link
   notify: restart apache
 
-- name: Add SRG vhosts
+- name: Add vhosts
   sudo: yes
-  template: src=vhosts_srg.conf dest=/etc/apache2/sites-available/001-srg.conf
+  template: src=001_vhosts.conf dest=/etc/apache2/sites-available/001-vhosts.conf
   notify: restart apache
 
-- name: Enable SRG vhosts
-  file: src=/etc/apache2/sites-available/001-srg.conf dest=/etc/apache2/sites-enabled/001-srg.conf state=link
+- name: Enable vhosts
+  file: src=/etc/apache2/sites-available/001-vhosts.conf dest=/etc/apache2/sites-enabled/001-vhosts.conf state=link
   notify: restart apache
 
