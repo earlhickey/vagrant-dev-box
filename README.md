@@ -8,26 +8,35 @@
 ## install
 
 1. Clone project
-  ```bash
-  git clone git@github.com:earlhickey/vagrant-dev-box.git
-  ```
+
+    ```bash
+    git clone git@github.com:earlhickey/vagrant-dev-box.git
+    ```
+
 2. Copy config file
-  ```bash
-  cp ansible/vars/all.yml ansible/vars/all.local.yml
-  ```
+
+    ```bash
+    cp ansible/vars/all.yml ansible/vars/all.local.yml
+    ```
+
 3. Edit config file
 
 ## usage
 
 1. Start
-  ```bash
-  vagrant up
-  ```
+
+    ```bash
+    vagrant up
+    ```
+
 2. Update
-  ```bash
-  vagrant provision
-  ```
+
+    ```bash
+    vagrant provision
+   ```
+
 3. Login
-  ```bash
-  vagrant ssh
-  ```
+
+    ```bash
+    vagrant ssh
+    ```
