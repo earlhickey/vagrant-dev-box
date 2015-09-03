@@ -21,6 +21,14 @@
 
 3. Edit config file
 
+4. Copy vhosts file
+
+    ```bash
+    cp ansible/roles/apache/templates/001_vhosts.conf.dist ansible/roles/apache/templates/001_vhosts.conf
+    ```
+
+5. Edit vhosts file
+
 ## usage
 
 1. Start
