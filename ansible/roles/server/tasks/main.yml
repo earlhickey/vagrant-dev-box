@@ -2,17 +2,20 @@
 - name: Update apt
   sudo: yes
   apt: update_cache=yes
+  when: server.install == "1"
 
 - name: Install Packages
   sudo: yes
   apt: pkg={{ item }} state=latest
   with_items: server.packages
-  when: server.packages is defined
+  when: server.packages is defined and server.install == "1"
 
 - name: Configure timezone
   sudo: yes
   shell: timedatectl set-timezone {{server.timezone}}
+  when: server.install == "1"
 
 - name: Configure locale
   sudo: yes
   shell: localectl set-locale LANG="{{server.locale}}" LC_CTYPE="{{server.lang}}"
+  when: server.install == "1"

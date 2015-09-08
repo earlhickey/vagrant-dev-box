@@ -1,17 +1,20 @@
 ---
-- name: Update apt
+- name: Install PHP
   sudo: yes
-  apt: update_cache=yes
+  apt: pkg=php5 state=latest
+  when: php.install == "1"
 
 - name: Install PHP Packages
   sudo: yes
   apt: pkg={{ item }} state=latest
   with_items: php.packages
-  when: php.packages is defined
+  when: php.packages is defined and php.install == "1"
   notify: restart apache
 
 - include: configure.yml
   notify: restart apache
+  when: php.install == "1"
 
 - include: pecl.yml
   notify: restart apache
+  when: php.install == "1"

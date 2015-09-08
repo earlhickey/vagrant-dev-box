@@ -5,8 +5,6 @@ server:
     timezone: Europe/Amsterdam
     locale: en_US.UTF-8
     lang: en_US
-memcached:
-    install: '1'
 apache:
     install: '1'
     packages: [rewrite, vhost_alias, headers, expires, filter]
@@ -21,12 +19,18 @@ mysql:
           dump: db_dump.sql
 php:
     install: '1'
-    packages: [php5, php5-cli, php5-intl, php5-mcrypt, php5-mysql, php5-curl, php5-gd, php5-xdebug, php5-memcache, php5-memcached]
+    packages: [php5-cli, php5-intl, php5-mcrypt, php5-mysql, php5-curl, php5-gd, php5-xdebug, php5-memcache, php5-memcached]
+memcached:
+    install: '1'
+xdebug:
+    install: '1'
+composer:
+    install: '1'
 blackfire:
     install: '1'
     server_id: your_id
     server_token: your_token
-xdebug:
+phpmyadmin:
     install: '1'
-composer:
+app:
     install: '1'

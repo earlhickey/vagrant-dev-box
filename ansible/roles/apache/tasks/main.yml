@@ -2,28 +2,33 @@
 - name: Install Apache
   sudo: yes
   apt: pkg=apache2 state=latest
+  when: apache.install == "1"
 
 - name: Install Apache Modules
   apache2_module: state=present name={{ item }}
   with_items: apache.packages
-  when: apache.packages is defined
+  when: apache.packages is defined and apache.install == "1"
   notify: restart apache
 
 - name: Add localhost
   sudo: yes
   template: src=000_localhost.conf dest=/etc/apache2/sites-available/000-default.conf
   notify: restart apache
+  when: apache.install == "1"
 
 - name: Enable localhost
   file: src=/etc/apache2/sites-available/000-default.conf dest=/etc/apache2/sites-enabled/000-default.conf state=link
   notify: restart apache
+  when: apache.install == "1"
 
 - name: Add vhosts
   sudo: yes
   template: src=001_vhosts.conf dest=/etc/apache2/sites-available/001-vhosts.conf
   notify: restart apache
+  when: apache.install == "1"
 
 - name: Enable vhosts
   file: src=/etc/apache2/sites-available/001-vhosts.conf dest=/etc/apache2/sites-enabled/001-vhosts.conf state=link
   notify: restart apache
+  when: apache.install == "1"
 

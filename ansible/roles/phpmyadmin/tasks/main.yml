@@ -1,9 +1,11 @@
 - name: Install phpmyadmin
   apt: name=phpmyadmin state=latest
+  when: phpmyadmin.install == "1"
 
 - name: Enable phpmyadmin
   file: src=/etc/phpmyadmin/apache.conf dest=/etc/apache2/conf-enabled/phpmyadmin.conf state=link
   notify: restart apache
+  when: phpmyadmin.install == "1"
 
 - name: Create database
   mysql_db: name=phpmyadmin
@@ -12,6 +14,7 @@
             encoding=utf8
             login_user=root
             login_password={{ mysql.root_password }}
+  when: phpmyadmin.install == "1"
 
 - stat: path=/usr/share/doc/phpmyadmin/examples/create_tables.sql.gz
   register: tables_gz_file
@@ -19,7 +22,7 @@
 - name: Unzip tables
   sudo: yes
   shell: gunzip -kf /usr/share/doc/phpmyadmin/examples/create_tables.sql.gz
-  when: tables_gz_file.stat.exists
+  when: tables_gz_file.stat.exists and phpmyadmin.install == "1"
   ignore_errors: true
 
 - stat: path=/usr/share/doc/phpmyadmin/examples/create_tables.sql
@@ -27,5 +30,5 @@
 
 - name: Configure phpmyadmin
   mysql_db: name=phpmyadmin state=import login_user=root login_password={{ mysql.root_password }} target=/usr/share/doc/phpmyadmin/examples/create_tables.sql
-  when: tables_file.stat.exists
+  when: tables_file.stat.exists and phpmyadmin.install == "1"
   ignore_errors: true
