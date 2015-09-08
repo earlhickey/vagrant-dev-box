@@ -12,8 +12,6 @@ Vagrant.configure("2") do |config|
   config.vm.network "forwarded_port", guest: 22, host: 2020, auto_correct: true
   config.vm.synced_folder "~/Documents/workspace", "/var/www", type: "nfs"
 
-  config.vm.post_up_message = "meh"
-
   config.vm.provider :virtualbox do |v|
     v.name = "pg-debian-box"
     v.customize [
@@ -28,7 +26,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.provision :ansible do |ansible|
     ansible.playbook = "ansible/playbook.yml"
-    ansible.verbose = "vv"
+    #ansible.verbose = "vv"
   end
 
 end
