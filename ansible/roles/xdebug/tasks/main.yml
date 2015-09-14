@@ -2,4 +2,14 @@
 - name: Install xDebug
   sudo: yes
   apt: pkg=php5-xdebug state=latest
+  notify: restart apache
+  when: xdebug.install == "1"
+
+- name: config
+  sudo: yes
+  template: >
+    src=xdebug.tpl
+    dest=/etc/php5/{{ item }}/conf.d/70-xdebug.ini
+  with_items: ['cli', 'apache2']
+  notify: restart apache
   when: xdebug.install == "1"
