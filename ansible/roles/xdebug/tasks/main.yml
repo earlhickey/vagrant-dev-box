@@ -9,7 +9,17 @@
   sudo: yes
   template: >
     src=xdebug.tpl
-    dest=/etc/php5/{{ item }}/conf.d/70-xdebug.ini
+    dest=/etc/php5/{{ item }}/conf.d/60-xdebug.ini
   with_items: ['cli', 'apache2']
   notify: restart apache
   when: xdebug.install == "1"
+
+- name: config profiler
+  sudo: yes
+  template: >
+    src=xdebug-profiler.tpl
+    dest=/etc/php5/{{ item }}/conf.d/70-xdebug.ini
+  with_items: ['cli', 'apache2']
+  notify: restart apache
+  when: xdebug.profiler == "1"
+
