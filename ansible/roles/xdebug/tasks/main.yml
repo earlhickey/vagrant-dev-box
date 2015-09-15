@@ -16,7 +16,7 @@
 
 - name: Install graphviz for webgrind
   sudo: yes
-  apt: pkg=php5-graphviz state=latest
+  apt: pkg=graphviz state=latest
   notify: restart apache
   when: xdebug.profiler == "1"
 
