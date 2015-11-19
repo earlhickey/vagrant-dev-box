@@ -5,7 +5,7 @@
   notify: restart apache
   when: xdebug.install == "1"
 
-- name: config
+- name: Config
   sudo: yes
   template: >
     src=xdebug.tpl
@@ -20,7 +20,7 @@
   notify: restart apache
   when: xdebug.profiler == "1"
 
-- name: config profiler
+- name: Config profiler
   sudo: yes
   template: >
     src=xdebug-profiler.tpl
@@ -29,3 +29,7 @@
   notify: restart apache
   when: xdebug.profiler == "1"
 
+- name: Add cron to remove old xdebug output files preventing running out of disk space
+  sudo: yes
+  cron: name="check dirs" minute="*/15" job="/usr/bin/find /tmp -maxdepth 1 -mmin +120 -type f -name "xdebug.out.*" -exec rm -f {} \; > /dev/null"
+  when: xdebug.profiler == "1"
