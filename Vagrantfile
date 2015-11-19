@@ -18,7 +18,7 @@ Vagrant.configure("2") do |config|
       "modifyvm", :id,
       "--name", "pg-debian-box",
       "--cpuexecutioncap", "50",
-      "--memory", "256",
+      "--memory", "512",
       "--natdnshostresolver1", "on",
       "--cpus", 1,
     ]
