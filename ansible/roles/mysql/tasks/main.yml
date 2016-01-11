@@ -61,4 +61,4 @@
             target=/vagrant/db/{{ item.dump }}
   with_items: mysql.databases
   ignore_errors: true
-  when: mysql.install == "1"
+  when: mysql.install == "1" and item.dump is defined and item.dump is not none
