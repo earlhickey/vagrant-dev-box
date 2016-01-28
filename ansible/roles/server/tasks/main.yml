@@ -15,6 +15,11 @@
   shell: timedatectl set-timezone {{server.timezone}}
   when: server.install == "1"
 
+- name: Sync time
+  sudo: yes
+  shell: timedatectl set-ntp true
+  when: server.install == "1"
+
 - name: Configure locale
   sudo: yes
   shell: localectl set-locale LANG="{{server.locale}}" LC_CTYPE="{{server.lang}}"

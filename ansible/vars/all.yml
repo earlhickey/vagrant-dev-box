@@ -1,7 +1,7 @@
 ---
 server:
     install: '1'
-    packages: [curl, wget, git, locate]
+    packages: [curl, wget, git, locate, ntp]
     timezone: Europe/Amsterdam
     locale: en_US.UTF-8
     lang: en_US
