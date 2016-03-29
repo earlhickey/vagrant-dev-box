@@ -1,0 +1,11 @@
+---
+
+- name: Add keys authenticity
+  apt_key: keyserver={{ mongodb_keyserver }} id={{ mongodb_keyserver_id }}
+
+- name: Add source sources
+  apt_repository: repo='{{ mongodb_repository }}' update_cache=yes
+
+- name: MongoDB | Install Packages
+  apt: pkg={{ item }} state=installed
+  with_items: mongodb_packages

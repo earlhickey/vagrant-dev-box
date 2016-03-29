@@ -13,4 +13,5 @@
     - composer
     - blackfire
     - phpmyadmin
+    - mongodb
     - app
